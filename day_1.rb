@@ -7,15 +7,11 @@ class Day1
   end
   
   def self.problem_2(start_value, input_path)
-    # results = [start_value]
+    inputs_array = FileProcessing.parse(input_path)
+    Transform.new(start_value, inputs_array).find_first_match
+  end
 
-    # input.each do |offset_raw|
-    #   offset = Offset.new(offset_raw)
-    #   start_value = start_value.send(offset.operator, offset.value)
-    #   return start_value if results.include?(start_value)
-    #   results << start_value
-    # end
-
+  def self.problem_2_b(start_value, input_path)
     inputs_array = FileProcessing.parse(input_path)
     Transform.new(start_value, inputs_array).find_first_match
   end
@@ -55,6 +51,25 @@ class Transform
       results << find_match_start
     end
     find_first_match(find_match_start, results)
+  end
+
+  def first_match
+    results = [start_value]
+    current_value = start_value
+    started = false
+
+    while (!started || !results.include?(current_value)) do
+      started = true
+
+      inputs.each_with_index do |offset_raw, i|
+        offset = Offset.new(offset_raw)
+        current_value = current_value.send(offset.operator, offset.value)
+        return current_value if results.include?(current_value)
+        results << current_value
+      end
+
+      started = false
+    end
   end
 end
 

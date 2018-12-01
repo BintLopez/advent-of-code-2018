@@ -4,7 +4,6 @@ require_relative '../day_1'
 describe 'Day 1 Problem' do
   # Problem:  https://adventofcode.com/2018/day/1
 
-  let(:input_file_path) { "day_1_input.txt" }
   let(:start_value)     { 0 }
 
   it 'converts string to offset object' do
@@ -19,8 +18,8 @@ describe 'Day 1 Problem' do
     # -1, -2, -3 results in -6
     let(:test_data) do
       [
-        { inputs: %w(+1 +1 +1), answer: 3    },
-        { inputs: %w(+1 +1 -2), answer: 0    },
+        { inputs: %w(+1 +1 +1), answer: 3  },
+        { inputs: %w(+1 +1 -2), answer: 0  },
         { inputs: %w(-1 -2 -3), answer: -6 },
       ]
     end
@@ -46,9 +45,15 @@ describe 'Day 1 Problem' do
       ]
     end
 
-    it 'finds the frequency first reached twice' do
+    it 'finds the frequency first reached twice via recursion' do
       test_data.each do |td|
         expect(Transform.new(start_value, td[:inputs]).find_first_match).to eq(td[:answer])
+      end
+    end
+
+    it 'finds the frequency first reached twice via loops' do
+      test_data.each do |td|
+        expect(Transform.new(start_value, td[:inputs]).first_match).to eq(td[:answer])
       end
     end
   end
