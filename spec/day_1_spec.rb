@@ -2,6 +2,8 @@ require 'spec_helper'
 require_relative '../day_1'
 
 describe 'Day 1 Problem' do
+  # Problem:  https://adventofcode.com/2018/day/1
+
   let(:input_file_path) { "day_1_input.txt" }
   let(:start_value)     { 0 }
 
